@@ -13,7 +13,7 @@ for line in file:
     all_history.append(current_history)
 
 # print(all_history)
-
+cycles = 0
 summ = 0
 for history in all_history:
     extended_history = []
@@ -21,11 +21,12 @@ for history in all_history:
     sum = 0
     refine = 1
     extended_history.append([history[-1]])
+    print("HIS:",history)
     while refine:
         for i in range(len(history)-1):
             # print(i)
             # print(history)
-            dif = abs(history[i+1]-history[i])
+            dif = (history[i+1]-history[i])
             sum+=dif
             next_history.append(dif)
             # if (len(next_history)==(len(history)-1)):
@@ -39,7 +40,7 @@ for history in all_history:
             refine = 0
             
 
-        if sum > 0:
+        if sum != 0:
             # print("AAA")
             history = next_history.copy()
             next_history.clear()
@@ -47,7 +48,7 @@ for history in all_history:
             
         
         # print("CCC")
-        # print("H:", history)
+        print("H:", history)
         # print("NH:", history)
 
         if len(history)==0:
@@ -56,14 +57,13 @@ for history in all_history:
         else:
             extended_history.append([history[-1]])
         # value = input("Please enter a string:\n")
-    # print("EH: ",extended_history)
+
+    print("EH: ",extended_history)
     for j in range(len(extended_history)-1,0,-1):
         v1 = extended_history[j][-1]
         v2 = extended_history[j-1][-1]
-        if v2<0:
-            v3 = v2-v1
-        else:
-            v3 = v1+v2
+        v3 = v2+v1
+
         # print("v3-1",v3,v2,v1)
         if j == len(extended_history)-1:
             # print("aaa")
@@ -72,12 +72,15 @@ for history in all_history:
         else:
             # print("bbb")
             extended_history[j-1].append(v3)
-        # print("EHN_:",extended_history)
-    # print("v3",v3)
+            
+        print("EHN_:",extended_history)
+    print("v3",v3)
 
     summ += v3
     print("EHN:",extended_history)
     # value = input("Please enter a string:\n")
+    cycles +=1
+    print(cycles)
 print("sum:",summ)
-if summ>100:
-    sys.exit(1)
+# if summ>100:
+#     sys.exit(1)
